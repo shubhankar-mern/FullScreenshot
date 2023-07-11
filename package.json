@@ -1,0 +1,19 @@
+{
+  "name": "fullpagescreenshot",
+  "version": "1.0.0",
+  "description": "an api microservice to take fullscreen screenshots of websites",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shubhankar kr singh",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "gifencoder": "^2.0.1",
+    "pdf-lib": "^1.17.1",
+    "pngjs": "^7.0.0",
+    "puppeteer": "^20.5.0"
+  }
+}
