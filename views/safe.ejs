@@ -80,7 +80,6 @@ function disableme(){
   const intervalId = setInterval(() => {
     inputurl.disabled = true;
     // Check if the cookie 'Alphabro=Alphabro' exists
-    console.log('document.cookie.includesAlphabro): ',document.cookie.includes('Alphabro=Alphabro'));
     if (document.cookie.includes('Alphabro=Alphabro')) {
       btn.style.display = 'block'; // Make the button visible again
       document.cookie = "Alphabro=Alphabro; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Delete the cookie
