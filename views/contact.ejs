@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/path/to/styles.css">
+</head>
+
+<body>
+  <nav class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto px-6">
+      <a href="/" class="text-lg font-bold px-2">🏠 Home</a>
+      <a href="/about" class="text-lg font-bold px-2">ℹ️ About</a>
+      <a href="/contact" class="text-lg font-bold px-2">📞 Contact</a>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-r from-emerald-400 via-blue-600 to-blue-700 py-16 text-white">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-bold mb-4">🌟 Contact Us</h1>
+      <p class="text-lg">Get in touch with us and let's talk! 📩</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-12">
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">📞 Contact Information</h2>
+        <p class="text-lg"><strong>📧 Email:</strong> info@example.com</p>
+        <p class="text-lg"><strong>📞 Phone:</strong> +1 123-456-7890</p>
+        <p class="text-lg"><strong>📍 Address:</strong> 123 Main Street, City, Country</p>
+      </div>
+      <form class="bg-white shadow-md rounded-lg p-6" onsubmit="(e)=>e.preventDefault()">
+        <h2 class="text-2xl font-bold mb-4">📝 Send us a Message</h2>
+        <div class="mb-4">
+          <label class="block text-lg mb-2" for="name">👤 Name</label>
+          <input class="w-full px-4 py-2 border rounded-lg" type="text" id="name" name="name">
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg mb-2" for="email">✉️ Email</label>
+          <input class="w-full px-4 py-2 border rounded-lg" type="email" id="email" name="email">
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg mb-2" for="message">💬 Message</label>
+          <textarea class="w-full px-4 py-2 border rounded-lg" id="message" name="message" rows="4"></textarea>
+        </div>
+        <button class="bg-blue-600 text-white py-2 px-4 rounded-lg" type="submit">✉️ Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto px-6">
+      <p class="text-center">&copy; 2023 My Website. All rights reserved. 🌟</p>
+    </div>
+  </footer>
+</body>
+
+</html>

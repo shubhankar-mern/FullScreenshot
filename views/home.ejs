@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title><%= title %></title>
+  <link href="lib/noty.css" rel="stylesheet">
+  <script src="lib/noty.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="bg-blue-600 text-white py-4">
+    <div class="container mx-auto px-6">
+      <a href="/" class="text-lg font-bold px-2">🏠 Home</a>
+      <a href="/about" class="text-lg font-bold px-2">ℹ️ About</a>
+      <a href="/contact" class="text-lg font-bold px-2">📞 Contact</a>
+    </div>
+  </nav>
+
+
+  <header class="bg-gradient-to-r from-emerald-400 via-emerald-600 to-blue-700 py-16 text-white">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-bold mb-4">🌟 Website Screenshot Generator</h1>
+      <p class="text-lg">Enter a URL below to generate a PDF and PNG screenshot. 🌐</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-12">
+    <form class="bg-white shadow-md rounded-lg p-6" id="url-form-id" action="/generate" method="post">
+      <div class="mb-4">
+        <label class="block text-lg mb-2" for="url">🔗 URL</label>
+        <input class="w-full px-4 py-2 border rounded-lg" type="text" id="url" name="url" required>
+      </div>
+      <div id="progress-bar" class="progress-bar" style="display: none;">
+        <div id="progress" class="progress" style="display: none;"></div>
+      </div>
+      <button class="bg-blue-600 text-white py-2 px-4 rounded-lg" id="button01" type="submit" onclick="disableme()">🚀 Generate</button>
+    </form>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-4 mt-auto">
+    <div class="container mx-auto px-6">
+      <p class="text-center">&copy; 2023 My Website. All rights reserved. 🌟</p>
+    </div>
+  </footer>
+  <script type="text/javascript" src="../public/main.js"></script>
+
+  <script>
+    function disableme(){
+  const btn = document.getElementById('button01');
+  const inputurl = document.getElementById('url');
+  if(inputurl.value!==''){
+    btn.style.display = 'none';
+
+    const intervalId = setInterval(() => {
+    inputurl.disabled = true;
+    // Check if the cookie 'Alphabro=Alphabro' exists
+    console.log('document.cookie.includesAlphabro): ',document.cookie.includes('Alphabro=Alphabro'));
+    if (document.cookie.includes('Alphabro=Alphabro')) {
+      btn.style.display = 'block'; // Make the button visible again
+      document.cookie = "Alphabro=Alphabro; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Delete the cookie
+      inputurl.disabled = false; 
+      inputurl.value = '';
+      clearInterval(intervalId); // Stop the interval
+    }
+  }, 500);
+  }
+  
+  
+  
+}
+  </script>
+</body>
+
+</html>

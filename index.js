@@ -1,59 +1,44 @@
-import puppeteer from 'puppeteer';
-import fs from 'fs';
-import { PNG } from 'pngjs';
-import { createCanvas } from 'canvas';
-import GIFEncoder from 'gifencoder';
-import { PDFDocument } from 'pdf-lib';
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const path = require('path');
 
-const websiteURL = 'https://www.marvel.com/movies';
-const imgPath = './image/sampleImage.png';
-const gifPath = './gif/sampleGif.gif';
-const pdfPath = './pdf/samplePDF.pdf';
+const app = express();
+const port = 3000;
+app.use(bodyParser.urlencoded({ extended: true }));
 
-async function generateScreenshot(url) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1920, height: 1080 });
-  await page.goto(url, { waitUntil: 'load' });
-  //await page.goto(url, { waitUntil: 'networkidle0' });
+// Parse JSON bodies
+app.use(bodyParser.json());
+// Set the views directory and view engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(cookieParser('NotSoSecret'));
+app.use(session({
+  secret: 'flashblog',
+  cookie: { maxAge: 60000 },
+  saveUninitialized: true,
+  resave: true
+}));
 
-  // Calculate the height of the page by evaluating the height of the content
-  const bodyHeight = await page.evaluate(() => document.body.scrollHeight);
+app.use(flash());
 
-  // Set the height of the viewport to match the height of the content
-  await page.setViewport({ width: 1920, height: bodyHeight }); // Set y
+// app.use(function(req,res,next){
+//   res.locals.message = req.flash();
+//   next();
+// })
+// Parse URL-encoded bodies
 
-  const screenshot = await page.screenshot({ path: imgPath, fullPage: true });
-  //await convertToGif(imgPath, gifPath);
-  await generatePdfFromPng(screenshot, pdfPath);
-  await browser.close();
-}
 
-async function generatePdfFromPng(pngData, outputPath) {
-  // Create a new PDF document
-  const pdfDoc = await PDFDocument.create();
+const Routes = require('./routes/index');
 
-  // Load the PNG data
-  const pngImage = await pdfDoc.embedPng(pngData);
 
-  // Add a new page to the PDF document with the PNG image as its content
-  const page = pdfDoc.addPage();
-  page.drawImage(pngImage, {
-    x: 0,
-    y: 0,
-    width: page.getWidth(),
-    height: page.getHeight(),
-  });
 
-  // Save the PDF document to a file
-  const pdfBytes = await pdfDoc.save();
-  fs.writeFileSync(outputPath, pdfBytes);
-}
-// Example usage
-generateScreenshot(websiteURL)
-  .then(() => {
-    console.log('Screenshot, PDF generated successfully.');
-  })
-  .catch((error) => {
-    console.error('Error generating screenshot:', error);
-  });
+app.use('/', Routes);
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
